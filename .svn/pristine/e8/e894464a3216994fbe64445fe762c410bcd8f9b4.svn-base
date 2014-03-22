@@ -1,0 +1,136 @@
+package com.hyyft.noteeverything.dao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.hyyft.noteeverything.dao.PlanDbHelperContract.LittleTagTableInfo;
+import com.hyyft.noteeverything.modal.LittleTag;
+
+public class LittleTagDao {
+	private DaoDbHelper dbHelper;
+	private SQLiteDatabase db;
+	public LittleTagDao(Context context){
+		dbHelper = new DaoDbHelper(context);
+	}
+	
+	public void add(LittleTag littleTag){
+		db = dbHelper.getWritableDatabase();
+		ContentValues values  = new ContentValues();
+		values.put(LittleTagTableInfo.COLUMN_NAME_ID , littleTag.getId() );
+		values.put(LittleTagTableInfo.COLUMN_NAME_TAG, littleTag.getTag());
+		values.put(LittleTagTableInfo.COLUMN_NAME_PARENTTAG, littleTag.getParentId());
+		db.insert(LittleTagTableInfo.TABLE_NAME, LittleTagTableInfo.COLUMN_NAME_TAG , values);
+		db.close();
+	}
+	
+	/**
+	 * 获取littletag信息
+	 * @param id  
+	 * @return
+	 */
+	@SuppressLint("NewApi")
+	public LittleTag get(int id){
+		db = dbHelper.getWritableDatabase();
+		LittleTag littleTag = new LittleTag();
+		Cursor cursor = db.query(true, LittleTagTableInfo.TABLE_NAME, null, LittleTagTableInfo.COLUMN_NAME_ID+"=?" ,
+				new String[]{ String.valueOf(id).toString() } , 
+				null, null, null, null, null);
+		littleTag.setId(id);
+		if( cursor.moveToNext() ){
+			littleTag.setTag(cursor.getString(cursor.getColumnIndex(LittleTagTableInfo.COLUMN_NAME_TAG)));
+			littleTag.setParentId(cursor.getInt(cursor.getColumnIndex(LittleTagTableInfo.COLUMN_NAME_PARENTTAG)));
+		}
+		db.close();
+		return littleTag;
+	}
+	
+	/**
+	 * 返回数据库中所有的littletag对象
+	 * @return
+	 */
+	@SuppressLint("NewApi")
+	public List<LittleTag> getAll(){
+		List<LittleTag>  list = new  ArrayList<LittleTag>();
+		db = dbHelper.getWritableDatabase();
+		LittleTag littleTag;
+		Cursor cursor = db.query(true, LittleTagTableInfo.TABLE_NAME, null, null ,	null , null, null, null, null, null);
+		while(cursor.moveToNext()){
+			littleTag = new LittleTag();
+			littleTag.setId(cursor.getInt(cursor.getColumnIndex(LittleTagTableInfo.COLUMN_NAME_ID)));
+			littleTag.setTag(cursor.getString(cursor.getColumnIndex(LittleTagTableInfo.COLUMN_NAME_TAG)));
+			littleTag.setParentId(cursor.getInt(cursor.getColumnIndex(LittleTagTableInfo.COLUMN_NAME_PARENTTAG)));
+			list.add(littleTag);
+		}
+		db.close(); 
+		return list; 
+	}
+	
+	/**
+	 * 删除指定的数据项
+	 * @param id 要删除数据项的id
+	 */
+	public void delete(int id){
+		db = dbHelper.getWritableDatabase();
+		if( id==0 ){
+			db.delete(LittleTagTableInfo.TABLE_NAME, null, null);
+			db.close();
+			return;
+		}
+		db.delete(LittleTagTableInfo.TABLE_NAME,
+				LittleTagTableInfo.COLUMN_NAME_ID+"=?", 
+				new String[]{ String.valueOf(id) });
+		
+		db.close();
+	}
+	
+	/**
+	 * 修改littleTag中的数据 ， 未经过测试，建议不要使用
+	 * @param values a map from column names to new column values
+	 * @param id  要修改数据项的id
+	 */
+	public void update(ContentValues values , int id){
+		db = dbHelper.getWritableDatabase();
+		db.update(LittleTagTableInfo.TABLE_NAME, values,
+				LittleTagTableInfo.COLUMN_NAME_ID+"=?",
+				new String[]{ String.valueOf(id) });
+		db.close();
+	}
+
+	
+	
+	
+	
+//	public void initDatabase(){
+//		ContentValues values = new ContentValues();
+//		
+//		db = dbHelper.getWritableDatabase();
+//		values.put(BigTagTableInfo.COLUMN_NAME_ID, "1");
+//		values.put(BigTagTableInfo.COLUMN_NAME_TAG, "日常");
+//		db.insert(BigTagTableInfo.TABLE_NAME, BigTagTableInfo.COLUMN_NAME_TAG , values);
+//		values.put(BigTagTableInfo.COLUMN_NAME_ID, "2");
+//		values.put(BigTagTableInfo.COLUMN_NAME_TAG, "娱乐");
+//		db.insert(BigTagTableInfo.TABLE_NAME, BigTagTableInfo.COLUMN_NAME_TAG , values);
+//		values.put(BigTagTableInfo.COLUMN_NAME_ID, "3");
+//		values.put(BigTagTableInfo.COLUMN_NAME_TAG, "工作");
+//		db.insert(BigTagTableInfo.TABLE_NAME, BigTagTableInfo.COLUMN_NAME_TAG , values);
+//		values.put(BigTagTableInfo.COLUMN_NAME_ID, "4");
+//		values.put(BigTagTableInfo.COLUMN_NAME_TAG, "运动");
+//		db.insert(BigTagTableInfo.TABLE_NAME, BigTagTableInfo.COLUMN_NAME_TAG , values);
+//		values.put(BigTagTableInfo.COLUMN_NAME_ID, "5");
+//		values.put(BigTagTableInfo.COLUMN_NAME_TAG, "学习");
+//		db.insert(BigTagTableInfo.TABLE_NAME, BigTagTableInfo.COLUMN_NAME_TAG , values);
+//		values.put(BigTagTableInfo.COLUMN_NAME_ID, "6");
+//		values.put(BigTagTableInfo.COLUMN_NAME_TAG, "旅游");
+//		db.insert(BigTagTableInfo.TABLE_NAME, BigTagTableInfo.COLUMN_NAME_TAG , values);
+//			
+//		
+//		db.close();
+//		
+//	}
+}

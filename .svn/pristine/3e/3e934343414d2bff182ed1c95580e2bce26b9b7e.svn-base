@@ -1,0 +1,13 @@
+package com.hyyft.noteeverything.global;
+
+import java.util.LinkedList;
+
+import com.hyyft.noteeverything.modal.DayPlan;
+
+import android.app.Application;
+
+public class NoteGlobal extends Application {
+	public LinkedList<DayPlan> planList = new LinkedList<DayPlan>();
+	public int maxPlanOrder = -1;
+	
+}

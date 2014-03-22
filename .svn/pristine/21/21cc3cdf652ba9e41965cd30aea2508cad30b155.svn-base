@@ -1,0 +1,14 @@
+package com.hyyft.noteeverything;
+
+import com.hyyft.noteeverything.weather.GetWeather;
+
+import android.test.AndroidTestCase;
+
+public class GetWeatherTest extends AndroidTestCase {
+
+	public void testGetWeather() {
+		GetWeather getWeather = new GetWeather();
+		getWeather.getWeather();
+	}
+
+}

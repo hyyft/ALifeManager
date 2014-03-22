@@ -1,0 +1,91 @@
+package com.hyyft.noteeverything.fragment;
+
+
+import java.util.Calendar;
+
+import com.hyyft.noteeverything.CalendarActivity;
+import com.hyyft.noteeverything.R;
+import com.hyyft.noteeverything.adapter.DayPlanAdapter;
+import com.hyyft.noteeverything.global.NoteGlobal;
+import com.hyyft.noteeverything.modal.DayPlan;
+import com.hyyft.noteeverything.service.InitService;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.text.format.Time;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
+
+public class PlanFragment extends ListFragment {
+
+	public static final int CALENDAR_REQUEST_CODE = 0;
+	private TextView dateTextView;
+	private NoteGlobal noteGlobal;
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View mainView = inflater.inflate(R.layout.dayplanfragment_layout, container, false);
+		ListView listView = (ListView)mainView.findViewById(android.R.id.list);
+		
+		dateTextView = (TextView)mainView.findViewById(R.id.date_textview);
+		dateTextView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getActivity(), CalendarActivity.class);
+				startActivityForResult(intent, CALENDAR_REQUEST_CODE);
+			}
+		});
+				
+		DayPlanAdapter adapter = new DayPlanAdapter(getActivity());
+//		dayPlan.setTitle("完成毕业设计" );
+//		dayPlan.setContent("第一步......;第二步......;第三步.........");
+//		dayPlan.setLevel("A");
+//		dayPlan.setPlanBeginTime(System.currentTimeMillis());
+//		dayPlan.setBigTag("运动");
+//		dayPlan.setLitleTag("足球");
+		
+		noteGlobal = (NoteGlobal)getActivity().getApplication();
+		for( int i=0 ; i<noteGlobal.planList.size() ;i++  ){
+			
+			adapter.addList(noteGlobal.planList.get(i));
+		}
+		
+		
+		listView.setAdapter(adapter);
+		
+		Time time = new Time();
+		time.setToNow();
+		dateTextView.setText(""+time.year+"-"+time.month+"-"+time.monthDay);
+		
+		
+		return mainView;
+	}
+
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		//获取日期
+		switch (requestCode) {
+		case CALENDAR_REQUEST_CODE:
+			if( resultCode == CalendarActivity.CALENDAR_RESULT_CODE_OK ){
+				String date = data.getExtras().getString(CalendarActivity.CALENDAR_RESULT);
+				dateTextView.setText(date);
+			}
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	
+}

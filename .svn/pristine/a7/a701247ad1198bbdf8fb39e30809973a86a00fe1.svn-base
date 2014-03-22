@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 显示计划内容和计划时长 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical"
+    android:paddingBottom="3dp"
+    android:paddingLeft="3dp"
+    android:paddingRight="50dp"
+    android:paddingTop="3dp" >
+
+    <!-- 填充顶部 -->
+
+    <LinearLayout
+        android:id="@+id/padding_top"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <!-- 显示类型的textview -->
+
+    <TextView
+        android:id="@+id/dayplanfragment_item_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/dayplanfragment_time_backgroud_color"
+        android:paddingBottom="1dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="1dp"
+        android:textColor="@color/dayplanfragment_time_color"
+        android:textSize="15sp" />
+
+    <!-- 显示计划的 layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal" >
+
+        <!-- 显示plan 时间的textview -->
+
+        <TextView
+            android:id="@+id/dayplanfragment_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:background="@drawable/plan_order_high"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/dayplanfragment_order_color"
+            android:textSize="15sp" />
+             
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/plancontent_bg"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/dayplanfragment_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+			<EditText 
+			    android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000"
+			    />
+            <TextView
+                android:id="@+id/dayplanfragment_item_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+	<LinearLayout
+	     android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         android:gravity="center"
+	    >
+
+	    <Button
+	        android:id="@+id/btn_plan_start_stop"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/btn_text_start_stop" />
+
+	    <Button
+	        android:id="@+id/btn_plan_finish"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/btn_text_finish" />
+	    <Button
+	        android:id="@+id/btn_plan_give_up"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/btn_text_give_up" />
+	</LinearLayout>
+
+</LinearLayout>

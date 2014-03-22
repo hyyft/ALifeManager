@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout
+        android:id="@+id/check_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/prev_btn"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:background="@drawable/prev_btn"
+            />
+        <TextView
+            android:id="@+id/date_textview"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="1234567"
+            />
+        <Button
+            android:id="@+id/next_btn"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:background="@drawable/next_btn"
+            />
+    </LinearLayout>
+    <item
+        android:id="@+id/menu_more"
+        android:icon="@drawable/ic_menu_moreoverflow_normal_holo_dark"
+        android:showAsAction="always"
+        android:title="@string/text_more">
+        <menu>
+            <item
+                android:id="@+id/menu_backup"
+                android:showAsAction="ifRoom|withText"
+                android:title="@string/text_backup"/>
+            <item
+                android:id="@+id/menu_restore"                
+                android:showAsAction="ifRoom|withText"
+                android:title="@string/text_restore"/>
+            <item
+                android:id="@+id/menu_set"
+                android:showAsAction="ifRoom|withText"
+                android:title="@string/text_set"/>
+            <item
+                android:id="@+id/menu_help"
+                android:showAsAction="ifRoom|withText"
+                android:title="@string/text_help"/>
+            <item
+                android:id="@+id/menu_quit"
+                android:showAsAction="ifRoom|withText"
+                android:title="@string/text_quit"/>
+        </menu>
+    </item>
+
+</menu>

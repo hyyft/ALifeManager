@@ -1,0 +1,50 @@
+package com.hyyft.noteeverything;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.hyyft.noteeverything.dao.LittleTagDao;
+import com.hyyft.noteeverything.modal.LittleTag;
+
+import android.test.AndroidTestCase;
+import android.util.Log;
+
+public class LittleTagDaoTest extends AndroidTestCase {
+
+	private static final String TAG = "LittleTagTest";
+	public void testAdd() {
+		LittleTagDao littleTagDao = new LittleTagDao(this.getContext());
+		LittleTag littleTag = new LittleTag();
+		littleTag.setId(1);
+		littleTag.setParentId(4);
+		littleTag.setTag("ÀºÇò");
+		littleTagDao.add(littleTag);
+		
+		littleTag = new LittleTag();
+		littleTag.setId(2);
+		littleTag.setParentId(4);
+		littleTag.setTag("×ãÇò");
+		littleTagDao.add(littleTag);
+	}
+
+	public void testGet() {
+		LittleTagDao littleTagDao = new LittleTagDao(this.getContext());
+		Log.i(TAG , littleTagDao.get(1).toString());
+		Log.i(TAG , littleTagDao.get(2).toString());
+	}
+
+	public void testGetAll() {
+		LittleTagDao littleTagDao = new LittleTagDao(this.getContext());
+		List<LittleTag> list = new ArrayList<LittleTag>();
+		list =  littleTagDao.getAll();
+		for( int i=0 ; i<list.size() ; i++){
+			Log.i(TAG , list.get(i).toString());
+		}
+	}
+
+	public void testDelete() {
+		LittleTagDao littleTagDao = new LittleTagDao(this.getContext());
+		littleTagDao.delete(0);
+	}
+
+}

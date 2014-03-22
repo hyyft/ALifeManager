@@ -1,0 +1,27 @@
+package com.hyyft.noteeverything;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.CalendarView;
+import android.widget.CalendarView.OnDateChangeListener;
+import android.widget.Toast;
+
+public class CalendarActivity extends Activity {
+	@Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.calendar);
+        
+        CalendarView calendarView=(CalendarView) findViewById(R.id.calendar_view);
+        calendarView.setOnDateChangeListener(new OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month,
+                    int dayOfMonth) {
+                // TODO Auto-generated method stub
+                String date = year + "Äê" + month + "ÔÂ" + dayOfMonth + "ÈÕ";
+                Toast.makeText(getApplicationContext(), date, 0).show();
+            }
+        });
+    }    
+
+}

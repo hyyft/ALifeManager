@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 显示计划内容和计划时长 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
+    android:paddingLeft="3dp"
+    android:paddingRight="50dp"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical" >
+
+    <!-- 填充顶部 -->
+    <LinearLayout
+        android:id="@+id/padding_top"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+
+    <!-- 显示时间的textview -->
+
+    <TextView
+        android:id="@+id/dayplanfragment_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@color/dayplanfragment_time_backgroud_color"
+        android:textColor="@color/dayplanfragment_time_color"
+        android:textSize="15sp" />
+
+    <!-- 显示计划的 layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal" >
+
+        <!-- 显示plan order的textview -->
+
+        <TextView
+            android:id="@+id/dayplanfragment_item_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@drawable/plan_order_high"
+            android:textColor="@color/dayplanfragment_order_color"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="30sp" />
+
+        <!-- 显示计划内容的textview -->
+
+        <TextView
+            android:id="@+id/dayplanfragment_item_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/plancontent_bg"
+            android:textColor="@color/dayplanfragment_time_color"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>

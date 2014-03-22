@@ -1,0 +1,81 @@
+package com.hyyft.noteeverything.weather;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONException;
+
+import android.util.Log;
+
+public class GetWeather {
+
+	private static final String TAG = "GetWeather";
+	private JSONObject jsonObject;
+	private String cityCode;
+	
+	public GetWeather(String cityCode){
+		this.cityCode = cityCode;
+	}
+	
+	public String getWeather(){
+	
+		getWeatherFrom();
+		//getLocation();   
+		return analyticJson();
+	}
+	
+	private void getWeatherFrom(){
+		
+		HttpClient client = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet("http://www.weather.com.cn/data/sk/"+cityCode+".html");
+		StringBuilder builder = new StringBuilder();
+		
+		try {
+			HttpResponse response = client.execute(httpGet);
+			BufferedReader reader = 
+					new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+			 for (String s = reader.readLine(); s != null; s = reader.readLine()) {
+		            builder.append(s);
+			 }
+			 jsonObject = new JSONObject(builder.toString()).getJSONObject("weatherinfo");
+		} catch (Exception e) {
+			// TODO: handle exception
+			Log.e(TAG, "ªÒ»°json ß∞‹"); 
+		}
+	}
+	
+	private void getLocation(){
+		HttpClient client = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet("http://61.4.185.48:81/g/");
+		StringBuilder builder = new StringBuilder();
+		try {
+			HttpResponse response = client.execute(httpGet);
+			BufferedReader reader = 
+					new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+			 for (String s = reader.readLine(); s != null; s = reader.readLine()) {
+		            builder.append(s);
+			 }
+			 Log.i(TAG, builder.toString()); 
+		} catch (Exception e) {
+			// TODO: handle exception
+			Log.e(TAG, "Location ß∞‹"); 
+		}
+	}
+	
+	private String analyticJson(){
+		String realTem = "";
+		try{
+			realTem=jsonObject.getString("temp");  
+		}catch(JSONException exception){
+			Log.i(TAG , "Ω‚Œˆ ß∞‹");
+		}
+		
+		return realTem;
+	}
+}

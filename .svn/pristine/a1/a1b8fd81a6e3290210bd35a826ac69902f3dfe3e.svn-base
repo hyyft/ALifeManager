@@ -1,0 +1,92 @@
+package com.hyyft.noteeverything;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.hyyft.noteeverything.dao.DayPlanDao;
+import com.hyyft.noteeverything.dao.PlanDbHelperContract.PlanTableInfo;
+import com.hyyft.noteeverything.modal.DayPlan;
+
+import android.content.ContentValues;
+import android.test.AndroidTestCase;
+import android.util.Log;
+
+public class DayPlanDaoTest extends AndroidTestCase {
+
+	private static final String TAG = "DayPlanDaoTest";
+
+	public void testAdd() {
+		DayPlanDao dao = new DayPlanDao(this.getContext());
+		DayPlan dayPlan = new DayPlan();
+		dayPlan.setLevel("A");
+		dayPlan.setOrder(1);
+		dayPlan.setTitle("计划1");
+		dayPlan.setContent("篮球运动");
+		dayPlan.setBigTag(4);
+		dayPlan.setLitleTag(1);
+		dayPlan.setBeginTime(System.currentTimeMillis());
+		dayPlan.setPlanTime(4);
+		dayPlan.setRealTime(0);
+		dayPlan.setIsFinish((short)0);
+		dayPlan.setDate("2014-2-26");
+		dao.add(dayPlan);
+		
+		dayPlan = new DayPlan();
+		dayPlan.setLevel("A");
+		dayPlan.setOrder(1);
+		dayPlan.setTitle("计划1");
+		dayPlan.setContent("篮球运动");
+		dayPlan.setBigTag(4);
+		dayPlan.setLitleTag(1);
+		dayPlan.setBeginTime(System.currentTimeMillis());
+		dayPlan.setPlanTime(4);
+		dayPlan.setRealTime(0);
+		dayPlan.setIsFinish((short)0);
+		dayPlan.setDate("2014-2-27");
+		dao.add(dayPlan);
+		
+		dayPlan = new DayPlan();
+		dayPlan.setLevel("B");
+		dayPlan.setOrder(1);
+		dayPlan.setTitle("计划2");
+		dayPlan.setContent("足球运动");
+		dayPlan.setBigTag(4);
+		dayPlan.setLitleTag(2);
+		dayPlan.setBeginTime(System.currentTimeMillis());
+		dayPlan.setPlanTime(4);
+		dayPlan.setRealTime(0);
+		dayPlan.setIsFinish((short)0);
+		dayPlan.setDate("2014-2-26");
+		dao.add(dayPlan);
+	}
+
+	public void testDelete() {
+		DayPlanDao dao = new DayPlanDao(this.getContext());
+		dao.delete(PlanTableInfo.PLANA_TABLE_NAME , 1, "2014-2-26");
+	}
+
+	public void testGetAll() {
+		DayPlanDao dao = new DayPlanDao(this.getContext());
+		List<DayPlan> listA = new ArrayList<DayPlan>();
+		listA = dao.getAll(PlanTableInfo.PLANA_TABLE_NAME, "2014-2-26");
+		for(int i = 0 ; i <  listA.size() ; i++ ){
+			Log.i(TAG , listA.get(i).toString());
+		}
+		
+		List<DayPlan> listA1 = new ArrayList<DayPlan>();
+		listA1 = dao.getAll(PlanTableInfo.PLANA_TABLE_NAME, "2014-2-27");
+		for(int i = 0 ; i <  listA1.size() ; i++ ){
+			Log.i(TAG , listA1.get(i).toString());
+		}
+		
+		List<DayPlan> listB = new ArrayList<DayPlan>();
+		listB = dao.getAll(PlanTableInfo.PLANB_TABLE_NAME, "2014-2-26");
+		for(int i = 0 ; i <  listB.size() ; i++ ){
+			Log.i(TAG , listB.get(i).toString());
+		}
+		
+	}
+
+	
+
+}

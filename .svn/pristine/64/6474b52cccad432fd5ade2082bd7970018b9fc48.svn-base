@@ -1,0 +1,104 @@
+package com.hyyft.noteeverything.dao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.hyyft.noteeverything.dao.PlanDbHelperContract.BigTagTableInfo;
+import com.hyyft.noteeverything.dao.PlanDbHelperContract.PlanTableInfo;
+import com.hyyft.noteeverything.modal.DayPlan;
+
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+public class DayPlanDao {
+	DaoDbHelper mDbHelper;
+	SQLiteDatabase db;
+	public DayPlanDao(Context context ){
+		mDbHelper = new DaoDbHelper(context);
+
+	}
+	
+	/**
+	 * dayplan 的添加
+	 * @param dayPlan
+	 */
+	public void add(DayPlan dayPlan){
+		db = mDbHelper.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(PlanTableInfo.COLUMN_NAME_ID, "null");
+		values.put(PlanTableInfo.COLUMN_NAME_LEVEL, dayPlan.getLevel());
+		values.put(PlanTableInfo.COLUMN_NAME_TITLE, dayPlan.getTitle());
+		values.put(PlanTableInfo.COLUMN_NAME_CONTENT, dayPlan.getContent());
+		values.put(PlanTableInfo.COLUMN_NAME_BIGTAG, dayPlan.getBigTag());
+		values.put(PlanTableInfo.COLUMN_NAME_LITTLETAG, dayPlan.getLitleTag());
+		values.put(PlanTableInfo.COLUMN_NAME_BEGINTIME, dayPlan.getBeginTime());
+		values.put(PlanTableInfo.COLUMN_NAME_REALTIME, dayPlan.getRealTime());
+		values.put(PlanTableInfo.COLUMN_NAME_PLANTIME, dayPlan.getPlanTime());
+		values.put(PlanTableInfo.COLUMN_NAME_ISFINISH, dayPlan.getIsFinish());
+		values.put(PlanTableInfo.COLUMN_NAME_DATE, dayPlan.getDate());	
+		db.insert(PlanTableInfo.PLAN_TABLE_NAME, PlanTableInfo.COLUMN_NAME_TITLE, values);
+		
+		db.close();
+	}
+	
+	
+	public void delete(String tableName , int id , String date){
+		db = mDbHelper.getWritableDatabase();
+
+		db.delete(tableName, PlanTableInfo.COLUMN_NAME_ID+"=? AND "+PlanTableInfo.COLUMN_NAME_DATE+"=?",
+				new String[]{ ""+id , date });
+		
+		db.close();
+		
+	}
+	/**
+	 * 获取某天的计划
+	 * @param date
+	 * @return
+	 */
+	@SuppressLint("NewApi")
+	public List<DayPlan> getAll(String tableName , String date){
+		db = mDbHelper.getWritableDatabase();
+		List<DayPlan> list = new ArrayList<DayPlan>();
+		DayPlan dayPlan;
+		Cursor cursor = db.query(true, tableName, null, 
+				PlanTableInfo.COLUMN_NAME_DATE+"=?", 
+				new String[]{ date }, 
+				null, null, null, null, null);
+		while(cursor.moveToNext()){
+			dayPlan = new DayPlan();
+			dayPlan.setLevel(cursor.getString(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_LEVEL)));
+			dayPlan.setTitle(cursor.getString(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_TITLE)));
+			dayPlan.setContent(cursor.getString(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_CONTENT)));
+			dayPlan.setBigTag(cursor.getInt(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_BIGTAG)));
+			dayPlan.setLitleTag(cursor.getInt(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_LITTLETAG)));
+			dayPlan.setBeginTime(cursor.getLong(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_BEGINTIME)));
+			dayPlan.setPlanTime(cursor.getInt(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_PLANTIME)));
+			dayPlan.setRealTime(cursor.getInt(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_REALTIME)));
+			dayPlan.setIsFinish(cursor.getShort(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_ISFINISH)));
+			dayPlan.setDate(cursor.getString(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_DATE)));
+			list.add(dayPlan);
+		}
+		db.close();
+		return list;	
+	}
+	
+	/**
+	 * 更新某天的计划
+	 * @param tableName
+	 * @param values
+	 * @param index
+	 * @param date
+	 */
+	public void update(ContentValues values , int id , String date){
+		db = mDbHelper.getWritableDatabase();
+		db.update(PlanTableInfo.PLAN_TABLE_NAME, values,
+				PlanTableInfo.COLUMN_NAME_ID+"=? and "
+						+PlanTableInfo.COLUMN_NAME_DATE+"=?", 
+				new String[]{ String.valueOf(id) , date });
+		db.close();
+	}
+}

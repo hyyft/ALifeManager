@@ -1,0 +1,46 @@
+package com.hyyft.noteeverything.fragment;
+
+
+import com.hyyft.noteeverything.R;
+import com.hyyft.noteeverything.adapter.DayPlanAdapter;
+import com.hyyft.noteeverything.modal.DayPlan;
+
+import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+
+public class PlanFragment extends ListFragment {
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View mainView = inflater.inflate(R.layout.dayplanfragment_layout, container, false);
+		ListView listView = (ListView)mainView.findViewById(android.R.id.list);
+		
+		
+//		addPlanTextView = (TextView)itemView.findViewById(R.id.dayplanfragment_item_none);
+		
+//		timeTextView.setText("2014-2-21");
+//		orderTextView.setText("A1");
+//		contentTextView.setText("完成毕业设计");
+		
+		DayPlanAdapter adapter = new DayPlanAdapter(getActivity());
+		DayPlan dayPlan = new DayPlan();
+		dayPlan.setTitle("完成毕业设计，粉色的风加咖啡加技能将对方的即可多发点开放空间地方加快递费" +
+				"地方加咖啡将打开地方尽快发飞机上理论上四六级嗯捏烦恼ski恩积分卡拉拉飞机" );
+		dayPlan.setLevel("A");
+		dayPlan.setOrder(1);
+		adapter.addList(dayPlan);
+		adapter.addList(dayPlan);
+		adapter.addList(dayPlan);
+		listView.setAdapter(adapter);
+		
+		return mainView;
+	}
+
+	
+}

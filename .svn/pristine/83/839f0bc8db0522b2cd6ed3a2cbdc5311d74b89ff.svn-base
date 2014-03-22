@@ -1,0 +1,49 @@
+package com.hyyft.noteeverything.planactivity;
+
+import com.hyyft.noteeverything.R;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.text.format.Time;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class AddPlanActivity extends Activity {
+
+	private TextView dateTextView , timeTextView  , tagTextView;
+	private EditText titlText , contentText;
+	private Button btn_save , btn_giveup;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+        setContentView(R.layout.addplan_layout);
+        findView();
+        setTime();
+        
+        
+	}
+	
+	
+	
+	private void findView(){
+		dateTextView = (TextView)findViewById(R.id.add_date_textview);
+		timeTextView = (TextView)findViewById(R.id.add_tag_textview);
+		tagTextView = (TextView)findViewById(R.id.add_tag_textview);
+		titlText = (EditText)findViewById(R.id.add_title_edittext);
+		contentText = (EditText)findViewById(R.id.add_content_edittext);
+		btn_save = (Button)findViewById(R.id.add_btn_save);
+		btn_giveup = (Button)findViewById(R.id.add_btn_giveup);
+		
+	}
+
+	private void setTime(){
+		Time time = new Time();
+		time.setToNow();
+		dateTextView.setText(time.year+"-"+time.month+":"+time.monthDay);
+		timeTextView.setText(time.hour+":"+time.minute);
+	}
+	
+}

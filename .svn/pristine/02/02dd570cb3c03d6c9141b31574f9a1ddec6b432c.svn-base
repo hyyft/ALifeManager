@@ -1,0 +1,55 @@
+package com.hyyft.noteeverything;
+
+import java.util.List;
+
+import com.hyyft.noteeverything.dao.BigTagDao;
+import com.hyyft.noteeverything.modal.BigTag;
+
+import android.test.AndroidTestCase;
+import android.util.Log;
+
+public class BigTagTest extends AndroidTestCase {
+
+	
+	
+	private static final String TAG = "BigTagTest";
+
+	public void testAdd() {
+		BigTagDao bigTagDao = new BigTagDao(this.getContext());
+		BigTag bigTag = new BigTag();
+		bigTag.setId(1);
+		bigTag.setTag("»’≥£");
+		bigTagDao.add(bigTag);
+		
+	}
+
+	public void testGet() {
+		BigTagDao bigTagDao = new BigTagDao(this.getContext());
+		Log.i(TAG , bigTagDao.get(1).toString());
+		Log.i(TAG , bigTagDao.get(2).toString());
+		Log.i(TAG , bigTagDao.get(3).toString());
+	}
+
+	
+
+	public void testDelete() {
+		BigTagDao bigTagDao = new BigTagDao(this.getContext());
+		bigTagDao.delete(0);
+	}
+	
+	public void testGetAll() {
+		List<BigTag> list ;
+		BigTagDao bigTagDao = new BigTagDao(this.getContext());
+		bigTagDao.initDatabase();
+		list = bigTagDao.getAll();
+
+		for(int i=0 ; i<list.size(); i++){
+			Log.i(TAG+i , list.get(i).toString());
+		}
+	}
+
+	public void testUpdate() {
+		fail("Not yet implemented");
+	}
+
+}

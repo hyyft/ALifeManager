@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NoteEverything</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="text_home">首页</string>
+    <string name="text_plan">计划</string>
+    <string name="text_do">执行</string>
+    <string name="text_check">反馈</string>
+    <string name="text_set">设置</string>
+    <string name="text_more">更多</string>
+    <string name="text_quit">退出</string>
+    <string name="text_help">帮助</string>
+    <string name="text_backup">备份</string>
+    <string name="text_restore">还原</string>
+    <string name="btn_text_start_stop">开始</string>
+    <string name="btn_text_finish">完成</string>
+    <string name="btn_text_give_up">放弃</string>
+    <string name="btn_text_modify">修改</string>
+    <string name="btn_text_add_plan">添加</string>
+    
+    <string name="text_addplan_title">题目</string>
+    <string name="text_addplan_content">内容</string>
+    <string name="text_addplan_btn_save">保存</string>
+    <string name="text_addplan_btn_giveup">放弃</string>
+    
+    
+    
+       
+
+</resources>
