@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tab_textColor_selected">#FF000000</color>  
+    <color name="tab_textColor_unselected">#FFFFFFFF</color>  
+    <color name="fragment_background_color">#FFDEDCD8</color>
+    <color name="dayplanfragment_time_color">#FFF7F7F6</color>
+    <color name="dayplanfragment_order_color">#FF00FF33</color>
+    <color name="dayplanfragment_time_backgroud_color">#FF565656</color>
+</resources>

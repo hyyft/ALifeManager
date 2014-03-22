@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hyyft.noteeverything"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+	<uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:name="com.hyyft.noteeverything.global.NoteGlobal"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <uses-library android:name="android.test.runner" />
+		
+        
+        <activity
+            android:name="com.hyyft.noteeverything.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.hyyft.noteeverything.planactivity.CalendarActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.hyyft.noteeverything.planactivity.AddPlanActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <service
+            android:name="com.hyyft.noteeverything.service.InitService"
+            android:label="@string/app_name" >
+        </service>
+    </application>
+
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:label="Test_MyApp"
+        android:targetPackage="com.hyyft.noteeverything" >
+    </instrumentation>
+
+</manifest>
